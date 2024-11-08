@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#field {
+    width: 90%;
+    max-width: 600px;
+    height: 700px;
+    border: 5px solid #fff;
+    background-color: #333;
+    position: relative;
+    margin-top: 20px;
+}
+
+#info {
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+}
+
+.health {
+    width: 30px;
+}
+
+#kait_logo {
+    width: 20%;
+    display: block;
+    margin: 200px auto;
+}
+
+#ground {
+    width: 100%;
+    height: 50px;
+    background: green;
+    position: absolute;
+    bottom: 0;
+}
+
+#personage {
+    position: absolute;
+    bottom: 50px; /* Над землей */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    transition: left 0.1s ease;
+}
+
+#control {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.button-control {
+    background-color: #444;
+    border: 2px solid #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.button-control:hover {
+    background-color: #747474;
+}
+
+.arrow {
+    width: 80px;
+   /*  image-rendering: pixelated; Четкость для пиксельных картинок */
+}
+
+#arrow-right {
+    transform: rotate(180deg);
+}
+
+.fruit {
+    width: 40px;
+    position: absolute; /* обязательно для падения */
+    top: 0;
+}

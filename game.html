@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style_obj.css">
+    <title>game</title>
+</head>
+<body>
+    <div id="field">
+        <div id="info">
+            <span id="score">score: 0</span> <br><br>
+            <img src="./images/health.png" class="health">
+            <img src="./images/health.png" class="health">
+            <img src="./images/health.png" class="health">
+            <hr>
+        </div>
+        <img src="./images/kait_logo.png" id="kait_logo">
+        <img src="./images/personage.png" id="personage">
+        <div id="ground"></div>
+    </div>
+
+    <div id="control">
+        <button class="button-control" id="button-left">
+            <img src="./images/arrow.png" id="arrow-left" class="arrow">
+        </button>
+        <button class="button-control" id="button-right">
+            <img src="./images/arrow.png" id="arrow-right" class="arrow">
+        </button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
