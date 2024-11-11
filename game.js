@@ -18,8 +18,14 @@ const moveSpeed = 15;
 
 document.getElementById('button-left').addEventListener('mousedown', () => { isMovingLeft = true; });
 document.getElementById('button-left').addEventListener('mouseup', () => { isMovingLeft = false; });
+document.getElementById('button-left').addEventListener('touchstart', () => { isMovingLeft = true; });
+document.getElementById('button-left').addEventListener('touchend', () => { isMovingLeft = false; });
+
 document.getElementById('button-right').addEventListener('mousedown', () => { isMovingRight = true; });
 document.getElementById('button-right').addEventListener('mouseup', () => { isMovingRight = false; });
+document.getElementById('button-right').addEventListener('touchstart', () => { isMovingRight = true; });
+document.getElementById('button-right').addEventListener('touchend', () => { isMovingRight = false; });
+
 
 function moveCharacter() {
     if (isMovingLeft && character.offsetLeft > 0) {
