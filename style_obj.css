@@ -76,8 +76,7 @@ body {
 }
 
 .arrow {
-    width: 80px;
-   /*  image-rendering: pixelated; Четкость для пиксельных картинок */
+    width: 200px;
 }
 
 #arrow-right {
