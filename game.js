@@ -26,6 +26,34 @@ document.getElementById('button-right').addEventListener('mouseup', () => { isMo
 document.getElementById('button-right').addEventListener('touchstart', () => { isMovingRight = true; });
 document.getElementById('button-right').addEventListener('touchend', () => { isMovingRight = false; });
 
+// Отключаем контекстное меню для кнопок
+document.getElementById('button-left').addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+document.getElementById('button-right').addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+
+// Отключаем контекстное меню для всего игрового поля
+field.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+
+// Обработка движения пальца, чтобы избежать "зацикливания"
+document.getElementById('button-left').addEventListener('touchmove', (event) => {
+    event.preventDefault(); // Отключаем стандартное поведение
+});
+
+document.getElementById('button-right').addEventListener('touchmove', (event) => {
+    event.preventDefault(); // Отключаем стандартное поведение
+});
+
+// Глобальное событие touchend для отслеживания конца нажатия, даже если палец ушел с кнопки
+document.addEventListener('touchend', () => {
+    isMovingLeft = false;
+    isMovingRight = false;
+});
+
 
 function moveCharacter() {
     if (isMovingLeft && character.offsetLeft > 0) {
