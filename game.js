@@ -1,4 +1,4 @@
-// game.js
+// Инициализация начальных параметров
 let score = 0; // Начальный счет
 let lives = 3; // Начальное количество жизней
 const field = document.getElementById('field');
@@ -16,44 +16,34 @@ let isMovingLeft = false;
 let isMovingRight = false;
 const moveSpeed = 15;
 
-document.getElementById('button-left').addEventListener('mousedown', () => { isMovingLeft = true; });
-document.getElementById('button-left').addEventListener('mouseup', () => { isMovingLeft = false; });
-document.getElementById('button-left').addEventListener('touchstart', () => { isMovingLeft = true; });
-document.getElementById('button-left').addEventListener('touchend', () => { isMovingLeft = false; });
+// Управление кнопками
+const buttonLeft = document.getElementById('button-left');
+const buttonRight = document.getElementById('button-right');
 
-document.getElementById('button-right').addEventListener('mousedown', () => { isMovingRight = true; });
-document.getElementById('button-right').addEventListener('mouseup', () => { isMovingRight = false; });
-document.getElementById('button-right').addEventListener('touchstart', () => { isMovingRight = true; });
-document.getElementById('button-right').addEventListener('touchend', () => { isMovingRight = false; });
+if (buttonLeft && buttonRight) {
+    buttonLeft.addEventListener('pointerdown', () => { isMovingLeft = true; });
+    buttonLeft.addEventListener('pointerup', () => { isMovingLeft = false; });
+    buttonLeft.addEventListener('pointerout', () => { isMovingLeft = false; });
 
-// Отключаем контекстное меню для кнопок
-document.getElementById('button-left').addEventListener('contextmenu', (event) => {
-    event.preventDefault();
-});
-document.getElementById('button-right').addEventListener('contextmenu', (event) => {
-    event.preventDefault();
-});
+    buttonRight.addEventListener('pointerdown', () => { isMovingRight = true; });
+    buttonRight.addEventListener('pointerup', () => { isMovingRight = false; });
+    buttonRight.addEventListener('pointerout', () => { isMovingRight = false; });
+
+    // Отключаем контекстное меню для кнопок
+    buttonLeft.addEventListener('contextmenu', (event) => event.preventDefault());
+    buttonRight.addEventListener('contextmenu', (event) => event.preventDefault());
+}
 
 // Отключаем контекстное меню для всего игрового поля
 field.addEventListener('contextmenu', (event) => {
     event.preventDefault();
 });
 
-// Обработка движения пальца, чтобы избежать "зацикливания"
-document.getElementById('button-left').addEventListener('touchmove', (event) => {
-    event.preventDefault(); // Отключаем стандартное поведение
-});
-
-document.getElementById('button-right').addEventListener('touchmove', (event) => {
-    event.preventDefault(); // Отключаем стандартное поведение
-});
-
-// Глобальное событие touchend для отслеживания конца нажатия, даже если палец ушел с кнопки
-document.addEventListener('touchend', () => {
+// Глобальная обработка отпускания кнопок
+window.addEventListener('pointerup', () => {
     isMovingLeft = false;
     isMovingRight = false;
 });
-
 
 function moveCharacter() {
     if (isMovingLeft && character.offsetLeft > 0) {
@@ -68,11 +58,9 @@ moveCharacter();
 
 // Функция для создания фрукта
 function createFruit() {
-    console.log("Создание нового фрукта...");
-
     const fruitImages = ['./images/fruit_apple.png', './images/fruit_orange.png', './images/fruit_pineapple.png'];
     const fruit = document.createElement('img');
-    
+
     fruit.src = fruitImages[Math.floor(Math.random() * fruitImages.length)];
     fruit.classList.add('fruit');
     fruit.style.position = 'absolute';
@@ -80,7 +68,6 @@ function createFruit() {
     fruit.style.top = '0px';
 
     field.appendChild(fruit);
-    console.log("Фрукт добавлен на поле.");
 
     // Анимация падения фрукта
     function fall() {
@@ -93,24 +80,21 @@ function createFruit() {
             fruitRect.left < characterRect.right &&
             fruitRect.right > characterRect.left
         ) {
-            console.log("Фрукт пойман!");
             field.removeChild(fruit);
             increaseScore();
-            return; // Завершаем выполнение
+            return;
         }
 
         // Падение фрукта вниз
         if (parseInt(fruit.style.top) < field.offsetHeight - 50) {
             fruit.style.top = `${parseInt(fruit.style.top) + 5}px`; // Скорость падения
-            requestAnimationFrame(fall); // Продолжаем анимацию
+            requestAnimationFrame(fall);
         } else {
-            console.log("Фрукт не пойман!");
             field.removeChild(fruit);
             decreaseLife();
         }
     }
 
-    // Запускаем падение фрукта
     requestAnimationFrame(fall);
 }
 
@@ -124,15 +108,12 @@ function increaseScore() {
 function decreaseLife() {
     if (lives > 0) {
         lives -= 1;
-        console.log(`Осталось жизней: ${lives}`);
-        // Обновляем отображение жизней
-        livesElements[lives].style.display = 'none'; // Скрыть картинку жизни
+        livesElements[lives].style.display = 'none';
     }
 
     if (lives <= 0) {
         alert('Game Over! Ваш счёт: ' + score);
-        // resetGame();
-        location.reload(); // Перезагрузка страницы
+        location.reload();
     }
 }
 
@@ -141,9 +122,8 @@ function resetGame() {
     score = 0;
     lives = 3;
     scoreElement.textContent = `score: ${score}`;
-    // Отображаем все жизни
     livesElements.forEach(life => life.style.display = 'inline');
 }
 
 // Периодически генерируем фрукты
-setInterval(createFruit, 2000); // Каждые 2 секунды появляется новый фрукт
+setInterval(createFruit, 2000);
